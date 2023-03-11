@@ -13,7 +13,7 @@ public class ColorHSB {
         hue = h;
         sat = s;
         bri = b;
-        if (hue < 0 || hue > 360 || sat < 0 || sat < 100 || bri < 0 || bri > 100)
+        if (hue < 0 || hue > 360 || sat < 0 || sat > 100 || bri < 0 || bri > 100)
             throw new IllegalArgumentException();
     }
 
@@ -49,18 +49,23 @@ public class ColorHSB {
         int b = Integer.parseInt(args[2]);
 
         ColorHSB color = new ColorHSB(h, s, b);
-        ColorHSB nearest_col = color;
+        String name = StdIn.readString();
+        String col = name;
+        int h2 = StdIn.readInt();
+        int s2 = StdIn.readInt();
+        int b2 = StdIn.readInt();
+        ColorHSB nearest_col = new ColorHSB(h2, s2, b2);
         int dist = 0;
-        String col = "";
+        
         while (!StdIn.isEmpty()) {
-            String name = StdIn.readString();
-            int h2 = StdIn.readInt();
-            int s2 = StdIn.readInt();
-            int b2 = StdIn.readInt();
+            name = StdIn.readString();
+            h2 = StdIn.readInt();
+            s2 = StdIn.readInt();
+            b2 = StdIn.readInt();
 
             ColorHSB test = new ColorHSB(h2, s2, b2);
             int new_dist = color.distanceSquaredTo(test);
-            if (new_dist > dist) {
+            if (new_dist < dist) {
                 dist = new_dist;
                 nearest_col = test;
                 col = name;
